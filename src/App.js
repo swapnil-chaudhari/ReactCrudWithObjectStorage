@@ -7,7 +7,6 @@ import './App.css';
 
 
 class App extends Component {
-
     constructor(props) {
         super(props);
         this.state = {
@@ -26,19 +25,18 @@ class App extends Component {
         this.setState({users: [
           {
             id:uuid.v4(),
-            e_name: 'Joe',
-            e_email: 'joe.loise@yahoo.in',
-            e_phone: '8155940980',
+            e_name: 'Swapnil',
+            e_email: 'swapnil.chaudhari@yahoo.in',
+            e_phone: '0000066666',
             e_department: 'IT'
           },
           {
             id:uuid.v4(),
-            e_name: 'Steve',
-            e_email: 'stevedevis@gmail.com',
-            e_phone: '9898989696',
+            e_name: 'Gayatri',
+            e_email: 'gayatri.chaudhari@gmail.com',
+            e_phone: '0000055555',
             e_department: 'Marketting'
-          }
-
+         },
         ]});
       }
 
@@ -65,9 +63,6 @@ class App extends Component {
         let index = users.findIndex(x => x.id === id);
         this.setState({editUserData:users[index]});
         this.setState({isEditMode: true});
-
-
-
       }
 
       editUser(user,id) {
@@ -79,22 +74,32 @@ class App extends Component {
         this.setState({ showAddUserForm:false});
       }
 
-      render() {
+    render() {
+        return (
+            <div className="App">
+                <div className="container">
+                    <button
+                        type="button"
+                        onClick={this.showAddUserForm.bind(this)}
+                        className="btn btn-primary"
+                        style={{margin:20 + 'px', float:'right'}}>
+                        Add User
+                    </button>
 
-              return (
+                    { this.state.showAddUserForm === true ?
+                	    <AddUser addUser={this.addUser.bind(this)} /> : null
+                    }
 
-<div className="App">
-	<div className="container">
-		<button type="button" onClick={this.showAddUserForm.bind(this)} className="btn btn-primary" style={{margin:20 + 'px', float:'right'}}>Add User</button>
-                      { this.state.showAddUserForm === true ?
-		<AddUser addUser={this.addUser.bind(this)}  /> : null }
-                      { this.state.isEditMode === true ?
-		<EditUser editUser={this.editUser.bind(this)} user={this.state.editUserData} /> : null }
+                    { this.state.isEditMode === true ?
+                	    <EditUser editUser={this.editUser.bind(this)} user={this.state.editUserData} /> : null
+                    }
 
-		<Users users={this.state.users} onDelete={this.deleteUser.bind(this)} onEdit={this.editUserAction.bind(this)} />
-	</div>
-</div>
-
+                    <Users
+                        users={this.state.users}
+                        onDelete={this.deleteUser.bind(this)}
+                        onEdit={this.editUserAction.bind(this)} />
+                </div>
+            </div>
           );
       }
 }
